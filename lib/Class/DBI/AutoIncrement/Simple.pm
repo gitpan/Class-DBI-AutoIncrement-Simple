@@ -3,7 +3,7 @@ package Class::DBI::AutoIncrement::Simple;
 use warnings;
 use strict;
 use base 'Class::DBI';
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub __add_row {
   my $self = shift;
@@ -131,7 +131,7 @@ L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Class-DBI-AutoIncrement-Simple>
 I will be notified, and then you'll automatically be notified of progress on
 your bug as I make changes.
 
-I'm also available by email or via '/msg davidrw' on <http://perlmonks.org>.
+I'm also available by email or via '/msg davidrw' on L<http://perlmonks.org>.
 
 =head1 SUPPORT
 

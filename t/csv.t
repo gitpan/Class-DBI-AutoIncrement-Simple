@@ -2,10 +2,19 @@
 
 use strict;
 use warnings;
-use Test::More tests => 22;
+use Test::More;
 
-use File::Temp qw/ tempfile tempdir /;
-use File::Basename qw/basename dirname/;
+BEGIN {
+    my @missingDeps;
+    eval "use File::Temp  qw/ tempfile tempdir /";
+    push @missingDeps, 'File::Temp' if $@;
+    eval "use File::Basename qw/basename dirname/";
+    push @missingDeps, 'File::Basename' if $@;
+    eval "use DBD::CSV";
+    push @missingDeps, 'DBD::CSV' if $@;
+    plan skip_all => __FILE__ . " requires: " . join(', ',@missingDeps) if @missingDeps;
+    plan tests => 22;
+};
 
 my $dir = '.';
 my ($fh, $filename) = tempfile('tXXXXXXX', DIR => $dir, UNLINK => 1 );
@@ -31,7 +40,6 @@ $method = 'create' if Class::DBI->can('create');
 $method = 'insert' if Class::DBI->can('insert');
 ok($method,"got method: $method");
 
-use Data::Dumper;
 my $row = Test::DB->retrieve(3);
 ok($row, "got row");
 is($row->my_id,3,"got id");
